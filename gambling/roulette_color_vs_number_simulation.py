@@ -7,23 +7,30 @@ A Monte Carlo simulation plotting cumulative winnings for the following strategi
 (b) Always betting on a number.
 """
 
-from random import random
+from random import random, seed
 import matplotlib.pyplot as plt
-import numpy as np
 
-def plot(x, y, label):
+def plot(x, y, label = ''):
     """Plot a set of x-y values with a legend label."""
-    x, y = np.array(x), np.array(y)
     plt.plot(x, y, label=label)
     # Create x-axis.
     ax = plt.gca()
     ax.spines['bottom'].set_position(('data', 0)) 
     ax.spines['top'].set_visible(False)
     ax.xaxis.set_ticks_position('bottom')
-    # Set y-limits to be equal distance from the x-axis.
-    ymin, ymax = ax.get_ylim()
-    M = max(abs(y.min()), abs(y.max()), abs(ymin), abs(ymax))
-    ax.set_ylim(-M, M)
+
+def update_lims(default=1, padding=0.05):
+    """Set limits for plot to include all visible data."""
+    ax = plt.gca()
+    # Find the min and max y-values displayed in any given graph. 
+    ymin = ymax = 0
+    for line in ax.get_lines():
+        ydata = line.get_ydata()
+        ymin = min(ymin, ydata.min())
+        ymax = max(ymax, ydata.max())
+    # Apply limits with padding.
+    pad = padding * (ymax - ymin or default)
+    ax.set_ylim(ymin - pad, ymax + pad)
 
 def trial_red(bets):
     """Simulate and plot cumulative winnings for color betting."""
@@ -49,14 +56,19 @@ def trial_num(bets):
         yvalues.append(yvalues[i]+bet())
     plot(range(1,bets+1), yvalues[1:], 'Number Betting')
 
-def run(bets):
+def run(bets, set_seed=None):
     """Perform, plot, and display simulations to the user."""
+    # Apply randomiser seed if applicable.
+    if set_seed is not None:
+        seed(set_seed)
+    # Run and display simulations to the user. 
     trial_red(bets)
     trial_num(bets)
     plt.legend()
+    update_lims()
     plt.show()
 
 # Number of bets to simulate.
 bets=10000
 
-run(bets)
+run(bets, set_seed=123)

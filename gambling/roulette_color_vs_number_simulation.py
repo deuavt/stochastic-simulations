@@ -63,7 +63,7 @@ def trial_num(bets):
 
 def main(bets, set_seed):
     """Perform, plot, and display simulations to the user."""
-    # Apply randomiser seed if applicable.
+    # Apply randomizer seed if applicable.
     if set_seed is not None:
         seed(set_seed)
     # Run and display simulations to the user. 

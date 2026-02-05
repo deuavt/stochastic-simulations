@@ -38,7 +38,7 @@ def update_lims(default=1, padding=0.05):
 
 def martingale(max_trials):
     """Perform and plot a single simulation of the Martingale System until it succeeds or reaches `max_trials` trials."""
-    # Initialise variables. 
+    # Initialize variables. 
     running_bet, profit_values = 1, [0]
     while len(profit_values) < max_trials + 1:
         # Simulate and record a single round using this system.
@@ -52,7 +52,7 @@ def martingale(max_trials):
 
 def main(num_sims, max_trials, set_seed):
     """Perform, plot, and display simulations to the user."""
-    # Apply randomiser seed if applicable.
+    # Apply randomizer seed if applicable.
     if set_seed is not None:
         seed(set_seed)
     # Run `num_sims` Martingale Doubling trials and plot them.

@@ -39,10 +39,10 @@ def update_lims(default=1, padding=0.05):
 
 def labouchere(start_list, max_trials):
     """Perform and plot a single simulation of the Labouchere System until it succeeds or reaches `max_trials` trials."""
-    # Initialise lists
+    # Initialize lists
     running_list, profit_values = list(start_list), [0]
     while running_list and len(profit_values) < max_trials + 1:
-        # Calculate this rounds bet.
+        # Calculate this round's bet.
         bet = running_list[0]
         if len(running_list) != 1:
             bet += running_list[-1]
@@ -61,7 +61,7 @@ def labouchere(start_list, max_trials):
 
 def main(start_list, num_sims, max_trials, set_seed):
     """Perform, plot, and display simulations to the user."""
-    # Apply randomiser seed if applicable.
+    # Apply randomizer seed if applicable.
     if set_seed is not None:
         seed(set_seed)
     # Run `num_sims` Labouchere trials and plot them.

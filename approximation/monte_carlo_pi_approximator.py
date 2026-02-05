@@ -18,20 +18,20 @@ MAX_POINTS = 10**6
 UPDATE_INTERVAL = 100 # (ms)
 # Visual settings.
 POINT_TRANSPARENCY = 0.025
-CIRCLE_COLOUR = "black"
-POINT_COLOUR = "red"
+CIRCLE_COLOR = "black"
+POINT_COLOR = "red"
 # Random seed settings (int for set seed; None for random seed).
 RAND_SEED = None
 
 def main():
     """Perform and display simulation using matplotlib."""
-    # Initialise numerical variables.
+    # Initialize numerical variables.
     count = count_in = 0
     points = np.empty((MAX_POINTS, 2))
     # Define center constant to be used in calculation.
     center = np.array([1/2, 1/2])
 
-    # Initialise randomisation using seed if supplied.
+    # Initialize randomization using seed if supplied.
     np.random.seed(RAND_SEED)
 
     # Matplotlib setup.
@@ -39,22 +39,22 @@ def main():
     fig.suptitle("Visual π Approximator")
     fig.canvas.manager.set_window_title("Visual π Approximator")
 
-    # Initialise animated variables.
+    # Initialize animated variables.
     approx_text = fig.text(0.15, 0.9, "")
-    points_scat = ax.scatter([], [], s=1, color=POINT_COLOUR, alpha=POINT_TRANSPARENCY)
+    points_scat = ax.scatter([], [], s=1, color=POINT_COLOR, alpha=POINT_TRANSPARENCY)
 
     # Plot a circle centered at (1/2, 1/2) with radius 1/2.
     x = np.linspace(0, 1, 50)
     y1 = np.sqrt((1/2)**2 - (x - 1/2)**2) + 1/2
     y2 = -y1 + 1
 
-    ax.plot(x, y1, color=CIRCLE_COLOUR)
-    ax.plot(x, y2, color=CIRCLE_COLOUR)
+    ax.plot(x, y1, color=CIRCLE_COLOR)
+    ax.plot(x, y2, color=CIRCLE_COLOR)
 
     # Set axes limits.
     ax.set(xlim=(0, 1), ylim=(0, 1))
 
-    # Initialisation function for mpl animation.
+    # Initialization function for mpl animation.
     def init():
         approx_text.set_text("pi ≈ ...")
         points_scat.set_offsets(np.empty((0, 2)))
@@ -100,7 +100,7 @@ def main():
     # blit = False to allow the animated text to be drawn in the fig environment.
     ani = FuncAnimation(fig, update, frames=updates, init_func=init, interval=UPDATE_INTERVAL, blit=False)
     
-    # Initialise the plot, starting the simulation.
+    # Initialize the plot, starting the simulation.
     plt.show()
 
 if __name__ == "__main__":

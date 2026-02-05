@@ -8,6 +8,13 @@ A program plotting cumulative winnings for multiple Monte Carlo simulations of t
 from random import random, seed
 import matplotlib.pyplot as plt
 
+# Simulation variables.
+START_LIST = (1, 2, 3, 4)
+NUM_SIMS = 10**3
+MAX_TRIALS = 10**3
+# Random seed settings (int for set seed; None for random seed).
+RAND_SEED = None
+
 def plot(x, y, label = ''):
     """Plot a set of x-y values with a legend label."""
     plt.plot(x, y, label=label)
@@ -52,21 +59,17 @@ def labouchere(start_list, max_trials):
             profit_values.append(profit_values[-1] - bet)
     plot(range(len(profit_values)), profit_values)
 
-def run(start_list, num_trials, max_trials, set_seed=None):
+def main(start_list, num_sims, max_trials, set_seed):
     """Perform, plot, and display simulations to the user."""
     # Apply randomiser seed if applicable.
     if set_seed is not None:
         seed(set_seed)
-    # Run `num_trials` Labouchere trials and plot them.
-    for trial in range(num_trials):
+    # Run `num_sims` Labouchere trials and plot them.
+    for trial in range(num_sims):
         labouchere(start_list, max_trials)
     # Display plot to user.
     update_lims()
     plt.show()
 
-# Simulation variables.
-start_list = (1, 2, 3, 4)
-num_trials = 1000
-max_trials = 500
-
-run(start_list, num_trials, max_trials, set_seed=123)
+if __name__ == "__main__":
+    main(START_LIST, NUM_SIMS, MAX_TRIALS, RAND_SEED)

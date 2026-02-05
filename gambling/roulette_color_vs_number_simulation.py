@@ -10,6 +10,11 @@ A Monte Carlo simulation plotting cumulative winnings for the following strategi
 from random import random, seed
 import matplotlib.pyplot as plt
 
+# Simulation settings.
+BETS = 10 ** 4
+# Random seed settings (int for set seed; None for random seed).
+RAND_SEED = None
+
 def plot(x, y, label = ''):
     """Plot a set of x-y values with a legend label."""
     plt.plot(x, y, label=label)
@@ -56,7 +61,7 @@ def trial_num(bets):
         yvalues.append(yvalues[i]+bet())
     plot(range(1,bets+1), yvalues[1:], 'Number Betting')
 
-def run(bets, set_seed=None):
+def main(bets, set_seed):
     """Perform, plot, and display simulations to the user."""
     # Apply randomiser seed if applicable.
     if set_seed is not None:
@@ -68,7 +73,5 @@ def run(bets, set_seed=None):
     update_lims()
     plt.show()
 
-# Number of bets to simulate.
-bets=10000
-
-run(bets, set_seed=123)
+if __name__ == "__main__":
+    main(BETS, RAND_SEED)

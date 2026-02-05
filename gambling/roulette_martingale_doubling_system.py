@@ -8,6 +8,12 @@ A program plotting cumulative winnings for multiple Monte Carlo simulations of t
 from random import random, seed
 import matplotlib.pyplot as plt
 
+# Simulation variables.
+NUM_SIMS = 10**3
+MAX_TRIALS = 10**3
+# Random seed settings (int for set seed; None for random seed).
+RAND_SEED = None
+
 def plot(x, y, label=''):
     """Plot a set of x-y values with a legend label."""
     plt.plot(x, y, label=label)
@@ -44,20 +50,17 @@ def martingale(max_trials):
             running_bet *= 2
     plot(range(len(profit_values)), profit_values)
 
-def run(num_trials, max_trials, set_seed=None):
+def main(num_sims, max_trials, set_seed):
     """Perform, plot, and display simulations to the user."""
     # Apply randomiser seed if applicable.
     if set_seed is not None:
         seed(set_seed)
-    # Run `num_trials` Martingale Doubling trials and plot them.
-    for trial in range(num_trials):
+    # Run `num_sims` Martingale Doubling trials and plot them.
+    for trial in range(num_sims):
         martingale(max_trials)
     # Display plot to user.
     update_lims()
     plt.show()
 
-# Simulation variables.
-num_trials = 10000
-max_trials = 500
-
-run(num_trials, max_trials, set_seed=123)
+if __name__ == "__main__":
+    main(NUM_SIMS, MAX_TRIALS, RAND_SEED)

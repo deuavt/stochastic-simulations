@@ -40,7 +40,7 @@ def main():
     fig.canvas.manager.set_window_title("Visual π Approximator")
 
     # Initialize animated variables.
-    approx_text = fig.text(0.15, 0.9, "")
+    data_text = fig.text(0.15, 0.9, "")
     points_scat = ax.scatter([], [], s=1, color=POINT_COLOR, alpha=POINT_TRANSPARENCY)
 
     # Plot a circle centered at (1/2, 1/2) with radius 1/2.
@@ -56,9 +56,9 @@ def main():
 
     # Initialization function for mpl animation.
     def init():
-        approx_text.set_text("pi ≈ ...")
+        data_text.set_text("π ≈ ..., Points = ..., Points In Circle = ...")
         points_scat.set_offsets(np.empty((0, 2)))
-        return (approx_text, points_scat)
+        return (data_text, points_scat)
 
     # Update function for mpl animation.
     def update(frame):
@@ -69,7 +69,7 @@ def main():
         # Calculate the number of points to generate. 
         to_gen = min(MAX_POINTS - count, BATCH_SIZE)
         if to_gen <= 0:
-            return (approx_text, points_scat)
+            return (data_text, points_scat)
 
         # Generate batch of points randomly in the unit square.
         batch = np.random.rand(to_gen, 2)
@@ -87,9 +87,9 @@ def main():
         # Approximate pi with this area via. A = pi * r^2 -> pi = 4A.
         approx_num = 4 * approx_area
         # Update the displayed approximation.
-        approx_text.set_text(f"pi ≈ {approx_num:.7f}")
+        data_text.set_text(f"pi ≈ {approx_num:.7f}, Points = {float(count):.2e}, Points In Circle = {float(count_in):.2e}")
         
-        return (approx_text, points_scat)
+        return (data_text, points_scat)
 
     # Calculate the number of updates needed to complete the simulation.
     updates = MAX_POINTS//BATCH_SIZE 

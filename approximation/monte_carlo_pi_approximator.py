@@ -98,7 +98,7 @@ def main():
 
     # Define the animation.
     # blit = False to allow the animated text to be drawn in the fig environment.
-    ani = FuncAnimation(fig, update, frames=updates, init_func=init, interval=UPDATE_INTERVAL, blit=False)
+    ani = FuncAnimation(fig, update, frames=updates, init_func=init, interval=UPDATE_INTERVAL, blit=False, repeat=False)
     
     # Initialize the plot, starting the simulation.
     plt.show()
